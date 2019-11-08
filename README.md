@@ -42,3 +42,11 @@ Configuration files location:
 
 * Compile the programm in IntelliJ and then run
 
+
+## Screenshots
+
+Example output:
+![sample_output](images/output.PNG)
+
+Web-UI:
+![ui](images/UI.PNG)
