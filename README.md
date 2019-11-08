@@ -18,12 +18,16 @@ Configuration files location:
 * Web-UI container: `compose/dynadmin/`
 
 
-## Requirements
 
-[Docker](https://www.docker.com/) is installed.
 
 
 ## How?
+
+### Requirements
+
+* [Docker](https://www.docker.com/) is installed.
+
+### Steps
 
 * create bridging network: `docker network create dyn`
 * Start the DynamoDB container
