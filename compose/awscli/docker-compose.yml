@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  awscli:
+    container_name: awscli
+    image: mikesir87/aws-cli
+    restart: unless-stopped
