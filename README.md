@@ -2,7 +2,7 @@
 
 Small programm to test the functionality of [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) deployed locally in [docker container](https://hub.docker.com/r/amazon/dynamodb-local).
 
-Web-UI used to manage / view the DynamoDB instance is [dynamodb-admin](https://hub.docker.com/r/aaronshaf/dynamodb-admin).
+Web-UI used to manage / view the DynamoDB **local** instance is [dynamodb-admin](https://hub.docker.com/r/aaronshaf/dynamodb-admin).
 
 
 
@@ -23,7 +23,7 @@ Configuration files location:
 
 ## How?
 
-### Requirements
+### Requirement
 
 * [Docker](https://www.docker.com/) is installed.
 
