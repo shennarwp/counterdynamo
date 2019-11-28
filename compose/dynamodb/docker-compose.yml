@@ -1,15 +1,15 @@
 version: "3.7"
 
 services:
-  dynamodb:
-    container_name: dynamodb
+  dyndbcounter:
+    container_name: dyndbcounter
     image: amazon/dynamodb-local
     restart: unless-stopped
     networks:
-      - dyn
+      - counter 
     ports:
       - 8000:8000
 
 networks:
-  dyn:
+  counter:
     external: true

@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  counterdynamo:
+    container_name: counterdynamo
+    image: dyn/counterdynamo
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      - counter
+    environment:
+      HTTP_PROXY: "http://0.0.0.0"
+      HTTPS_PROXY: "http://0.0.0.0"
+
+networks:
+  counter:
+    external: true

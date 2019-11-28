@@ -1,7 +1,9 @@
 package dh;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -11,6 +13,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
+import com.amazonaws.services.dynamodbv2.document.ScanOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
@@ -41,6 +45,11 @@ public class Counter
         {
             this.dynamodbProperties = new Properties();
             dynamodbProperties.load(Counter.class.getResourceAsStream("/dynamodb.properties"));
+            logger.info(String.format("DynamoDB Endpoint in: %s",
+                                      dynamodbProperties.getProperty("dynamodb.url")));
+            logger.info(String.format("DynamoDB Region in: %s",
+                                          dynamodbProperties.getProperty("dynamodb.region")));
+
         }
         catch (IOException ioe)
         {
@@ -64,7 +73,6 @@ public class Counter
                         dynamodbProperties.getProperty("dynamodb.url"),
                         dynamodbProperties.getProperty("dynamodb.region")))
                 .build();
-
         return new DynamoDB(client);
     }
 
@@ -153,6 +161,7 @@ public class Counter
                 );
                 logger.info("Trying to insert {}", i);
                 i++;
+                dynamoDB.shutdown();
                 Thread.sleep(2000);
             }
         }
@@ -161,6 +170,20 @@ public class Counter
             Thread.currentThread().interrupt();
             logger.error(String.format("Error: '%s' . Program interrupted!", ie));
         }
+    }
+
+    public List<String> getAllItem()
+    {
+        DynamoDB dynamoDB = connectClient();
+        Table table = dynamoDB.getTable(COUNTER_TABLE_NAME);
+        List<String> itemList = new ArrayList<>();
+        ItemCollection<ScanOutcome> items = table.scan();
+        for (Item i : items)
+        {
+            itemList.add(i.getString("value"));
+            System.out.println(i);
+        }
+        return itemList;
     }
 
     public static void main(String... args)
@@ -172,5 +195,8 @@ public class Counter
         counter.createTable();
 
         counter.count();
+        //counter.getAllItem();
+                
+        
     }
 }

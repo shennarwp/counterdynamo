@@ -1,19 +1,19 @@
 version: "3.7"
 
 services:
-  dynadmin:
-    container_name: dynadmin
+  dynadmin_counter:
+    container_name: dynadmin_counter
     image: aaronshaf/dynamodb-admin
     environment:
-      DYNAMO_ENDPOINT: "dynamodb:8000"
+      DYNAMO_ENDPOINT: "dyndbcounter:8000"
       AWS_REGION: "eu-west-1"
       AWS_ACCESS_KEY_ID: "dynamodblocal"
       AWS_SECRET_ACCESS_KEY: "dynamodblocal"
     restart: unless-stopped
     networks:
-      - dyn
+      - counter
     ports:
       - 8001:8001
 networks:
-  dyn:
+  counter:
     external: true
