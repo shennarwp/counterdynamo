@@ -6,7 +6,7 @@ services:
     image: amazon/dynamodb-local
     restart: unless-stopped
     networks:
-      - counter 
+      - counter
     ports:
       - 8000:8000
 

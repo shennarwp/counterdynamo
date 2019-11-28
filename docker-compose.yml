@@ -3,7 +3,7 @@ version: "3.7"
 services:
   counterdynamo:
     container_name: counterdynamo
-    image: dyn/counterdynamo
+    image: counter/counterdynamo
     build:
       context: .
       dockerfile: Dockerfile

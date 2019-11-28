@@ -11,11 +11,14 @@ Web-UI used to manage / view the DynamoDB **local** instance is [dynamodb-admin]
 A small java programm that tries to write a key-value pair of integer and string every 2s in the local DynamoDB instance indefinitely.
 Every time the program is started, existing table in the database will be deleted and recreated.
 
+The java programm, the DynamoDB instance, and the Web-UI will be deployed in docker container.
+
 The DynamoDB instance is accessible in `http://localhost:8000/`, while the web-UI to view the contents of the database is accessible in `http://localhost:8001/`.
 
 Configuration files location:
 
 * Amazon credentials and DynamoDB url configuration for the java program is located in `src/main/resources/dynamodb.properties`
+* The java programm container: `/docker-compose.yml`
 * DynamoDB container: `compose/dynamodb/`
 * Web-UI container: `compose/dynadmin/`
 
@@ -29,7 +32,7 @@ Configuration files location:
 
 ### Steps
 
-* Create bridging network: `docker network create dyn`
+* Create bridging network: `docker network create counter`
 * Start the DynamoDB container
 	* go to `compose/dynamodb/`
 	* `docker-compose up`
@@ -40,7 +43,12 @@ Configuration files location:
 	* `docker-compose up`
 	* go to `http://localhost:8001`
 
-* Compile the programm in IntelliJ and then run
+* Compile the programm in IntelliJ
+
+* Start the java programm
+	* go to `/`
+	* `docker-compose build`
+	* `docker-compose up`
 
 
 
